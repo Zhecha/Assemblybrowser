@@ -15,12 +15,11 @@ namespace BrowserLibrary
 
         public InformAboutAssembly(string path)
         {
-            _namespaces = LoadAssembly(path);
+            LoadAssembly(path);
         }
 
-        private Collection<NameSpaceClass> LoadAssembly(string path)
+        private void LoadAssembly(string path)
         {
-            Collection<NameSpaceClass> NameSpaces = new Collection<NameSpaceClass>();
             Assembly assembly = Assembly.LoadFrom(path);
             IEnumerator current = assembly.DefinedTypes.GetEnumerator();
             while (current.MoveNext())
@@ -29,7 +28,21 @@ namespace BrowserLibrary
                 AddToCollection(item);
             }
             current.Reset();
-            return NameSpaces;
+        }
+
+        private void AddToCollection(Type type)
+        {
+            if(type.Namespace != null)
+            {
+                NameSpaceClass tempNamespace = new NameSpaceClass(type.Namespace);
+                tempNamespace._classes.Add(new TypeData(type));
+                _namespaces.Add(tempNamespace);
+            } else
+            {
+                NameSpaceClass tempNamespace = new NameSpaceClass("Global");
+                tempNamespace._classes.Add(new TypeData(type));
+                _namespaces.Add(tempNamespace);
+            }
         }
     }
 }
