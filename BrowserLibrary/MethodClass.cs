@@ -13,7 +13,6 @@ namespace BrowserLibrary
         public bool _static { get; set; }
         public bool _public { get; set; }
         public string _sign { get; set; }
-        public bool _virtual { get; set; }
 
         public MethodClass(MethodInfo methodInfo)
         {
@@ -21,7 +20,6 @@ namespace BrowserLibrary
             _sign = methodInfo.ToString();
             _public = methodInfo.IsPublic;
             _static = methodInfo.IsStatic;
-            _virtual = methodInfo.IsVirtual;
         }
     }
 }
