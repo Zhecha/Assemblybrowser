@@ -9,15 +9,17 @@ namespace assemblyBrowser
 {
     public class ViewField
     {
-        public string fieldClass;
+        public string _fieldClass;
 
         public ViewField (FieldClass field)
         {
-            string fieldstructure = "public";
+            string fieldstructure = "";
+            if (field._public)
+                fieldstructure = "public";
             if (field._static)
                 fieldstructure += " " + "static";
             fieldstructure += field._typeField + " " + field._nameField;
-            fieldClass = fieldstructure;
+            _fieldClass = fieldstructure;
         }
     }
 }
