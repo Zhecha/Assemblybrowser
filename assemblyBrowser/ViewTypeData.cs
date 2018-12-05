@@ -26,7 +26,26 @@ namespace assemblyBrowser
             if (type._class)
                 typedata += "class ";
             _typedataClass = typedata + " " + type._nameClass;
+            InitializeViewFMP(type);
+        }
 
+        private void InitializeViewFMP(TypeData type)
+        {
+            viewFields = new List<ViewField>();
+            viewProperties = new List<ViewProperty>();
+            viewMethods = new List<ViewMethod>();
+            foreach (FieldClass field in type._fields)
+            {
+                viewFields.Add(new ViewField(field));
+            }
+            foreach (PropertyClass property in type._properties)
+            {
+                viewProperties.Add(new ViewProperty(property));
+            }
+            foreach (MethodClass method in type._methods)
+            {
+                viewMethods.Add(new ViewMethod(method));
+            }
         }
     }
 }
