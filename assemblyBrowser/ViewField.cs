@@ -9,7 +9,7 @@ namespace assemblyBrowser
 {
     public class ViewField
     {
-        public string _fieldClass;
+        public string fieldClass { get; set; }
 
         public ViewField (FieldClass field)
         {
@@ -19,7 +19,7 @@ namespace assemblyBrowser
             if (field._static)
                 fieldstructure += " " + "static";
             fieldstructure += field._typeField + " " + field._nameField;
-            _fieldClass = fieldstructure;
+            fieldClass = fieldstructure;
         }
     }
 }
