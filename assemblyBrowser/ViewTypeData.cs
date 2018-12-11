@@ -1,18 +1,34 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
 using BrowserLibrary;
 
 namespace assemblyBrowser
 {
     public class ViewTypeData
     {
-        public string _typedataClass;
-        public List<ViewField> viewFields;
-        public List<ViewMethod> viewMethods;
-        public List<ViewProperty> viewProperties;
+        public string typedataClass { get; set; }
+        public List<ViewField> viewFields { get; set; }
+        public List<ViewMethod> viewMethods { get; set; }
+        public List<ViewProperty> viewProperties { get; set; }
+        public IList children
+        {
+            get
+            {
+                return new CompositeCollection()
+                {
+                    new CollectionContainer { Collection = viewFields },
+                    new CollectionContainer { Collection = viewMethods },
+                    new CollectionContainer { Collection = viewProperties }
+                };
+            }
+
+        }
 
         public ViewTypeData(TypeData type)
         {
@@ -25,7 +41,7 @@ namespace assemblyBrowser
                 typedata += "interface ";
             if (type._class)
                 typedata += "class ";
-            _typedataClass = typedata + " " + type._nameClass;
+            typedataClass = typedata + " " + type._nameClass;
             InitializeViewFMP(type);
         }
 
