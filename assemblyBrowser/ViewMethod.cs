@@ -9,7 +9,7 @@ namespace assemblyBrowser
 {
     public class ViewMethod
     {
-        public string _methodClass;
+        public string methodClass { get; set; }
 
         public ViewMethod(MethodClass method)
         {
@@ -18,7 +18,7 @@ namespace assemblyBrowser
                 methodacces += "public";
             if (method._static)
                 methodacces += " " + "static";
-            _methodClass = methodacces + " " + method._sign;
+            methodClass = methodacces + " " + method._sign;
         }
     }
 }
