@@ -13,7 +13,7 @@ namespace assemblyBrowser
         public void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null)
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(prop));
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
