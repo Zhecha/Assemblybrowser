@@ -11,28 +11,40 @@ namespace BrowserLibrary
 {
     public class InformAboutAssembly
     {
-        public Collection<NameSpaceClass> _namespaces { get; set; }
+        public List<NameSpaceClass> _namespaces;
 
         public InformAboutAssembly(string path)
         {
+            _namespaces = new List<NameSpaceClass>();
             LoadAssembly(path);
         }
 
         private void LoadAssembly(string path)
         {
             Assembly assembly = Assembly.LoadFrom(path);
-            IEnumerator current = assembly.DefinedTypes.GetEnumerator();
-            while (current.MoveNext())
+            Type[] types;
+            try
             {
-                Type item = (Type)current.Current;
-                AddToCollection(item);
+                types = assembly.GetTypes();
+                foreach(Type type in types)
+                {
+                    AddToCollection(type);
+                }
             }
-            current.Reset();
+            catch (ReflectionTypeLoadException e)
+            {
+                Console.WriteLine(e.Message);
+                types = e.Types.Where(t => ((t != null))).ToArray();
+                foreach (Type type in types)
+                {
+                    AddToCollection(type);
+                }
+            }
         }
 
         private void AddToCollection(Type type)
         {
-            if(type.Namespace != null)
+            if (type.Namespace != null)
             {
                 NameSpaceClass tempNamespace = new NameSpaceClass(type.Namespace);
                 tempNamespace._classes.Add(new TypeData(type));
