@@ -9,25 +9,25 @@ namespace assemblyBrowser
 {
     public class Command : ICommand
     {
-        private Action<object> execute;
-        private Func<object, bool> canexecute;
+        private Action<object> _execute;
+        private Func<object, bool> Canexecute;
 
         public event EventHandler CanExecuteChanged;
 
         public Command(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            this.execute = execute;
-            this.canexecute = canExecute;
+            _execute = execute;
+            Canexecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return this.canexecute == null || this.canexecute(parameter);
+            return Canexecute == null || Canexecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            this.execute(parameter);
+            _execute(parameter);
         }
     }
 }
