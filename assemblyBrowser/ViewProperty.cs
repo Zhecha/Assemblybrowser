@@ -9,7 +9,7 @@ namespace assemblyBrowser
 {
     public class ViewProperty
     {
-        public string _propertyClass;
+        public string propertyClass { get; set; }
 
         public ViewProperty(PropertyClass property)
         {
@@ -18,10 +18,10 @@ namespace assemblyBrowser
             if (property._public)
                 propertystructure = "public" + " " + property._typeProperty + " " + property._nameProperty;
             if (property._read)
-                getAndset += "get";
+                getAndset += " get;";
             if (property._write)
-                getAndset += "set";
-            _propertyClass = propertystructure + " " + "{" + getAndset + "}";
+                getAndset += " set;";
+            propertyClass = propertystructure + " " + "{" + getAndset + "}";
         }
     }
 }
